@@ -24,7 +24,7 @@ const Menubar = () => {
       <Container>
         <Menu.Item as={Link} to='/' header>
           <Image size='mini' src={assets.logo} style={{ marginRight: '1.5em' }} />
-          Producties
+          Flipdeal
         </Menu.Item>
 
         <Menu.Item

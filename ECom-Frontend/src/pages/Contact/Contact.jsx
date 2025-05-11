@@ -119,7 +119,7 @@ const Contact = () => {
                     </p>
                     <p>
                       <Icon name='mail outline' size='large' />
-                      <span style={{ marginLeft: '1em' }}>info@producties.com</span>
+                      <span style={{ marginLeft: '1em' }}>info@flipdeal.com</span>
                     </p>
                     <p>
                       <Icon name='clock outline' size='large' />
