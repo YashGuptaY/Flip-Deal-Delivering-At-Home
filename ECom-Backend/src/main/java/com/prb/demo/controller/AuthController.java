@@ -5,7 +5,6 @@ import com.prb.demo.io.AuthenticationResponse;
 import com.prb.demo.service.AppUserDetailsService;
 import com.prb.demo.util.JwtUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;

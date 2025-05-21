@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Grid, Form, Segment, Button, Header, Message } from 'semantic-ui-react';
+import { useNavigate } from "react-router-dom";
+import { Form, Button, Header, Message, Modal, Icon, TransitionablePortal } from 'semantic-ui-react';
 import { login } from "../../service/authService";
 import { StoreContext } from "../../context/StoreContext";
 import { toast } from "react-toastify";
+import "./Login.css";
 
-const Login = () => {
+const Login = ({ open, onClose, switchToRegister }) => {
   const { setToken, loadCartData } = useContext(StoreContext);
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -27,6 +28,7 @@ const Login = () => {
         setToken(response.data.token);
         localStorage.setItem("token", response.data.token);
         await loadCartData(response.data.token);
+        onClose();
         navigate("/");
       } else {
         toast.error("Unable to login. Please try again.");
@@ -38,13 +40,28 @@ const Login = () => {
   };
 
   return (
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
-          Log-in to your account
-        </Header>
-        <Form size='large' onSubmit={onSubmitHandler}>
-          <Segment stacked>
+    <TransitionablePortal
+      open={open}
+      transition={{ animation: 'scale', duration: 300 }}
+    >
+      <Modal 
+        open={true} 
+        onClose={onClose} 
+        size="tiny"
+        className="login-modal"
+      >
+        <Modal.Header className="modal-header">
+          <Header as='h2' color='teal' textAlign='center'>
+            <Header.Content>
+              Welcome Back!
+              <Header.Subheader>
+                Log in to your account to continue
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+        </Modal.Header>
+        <Modal.Content>
+          <Form size='large' onSubmit={onSubmitHandler} className="login-form">
             <Form.Input
               fluid
               icon='user'
@@ -53,6 +70,7 @@ const Login = () => {
               name="email"
               value={data.email}
               onChange={onChangeHandler}
+              className="form-input"
             />
             <Form.Input
               fluid
@@ -63,17 +81,40 @@ const Login = () => {
               name="password"
               value={data.password}
               onChange={onChangeHandler}
+              className="form-input"
             />
-            <Button color='teal' fluid size='large'>
-              Login
+            <Button 
+              color='teal' 
+              fluid 
+              size='large'
+              className="submit-button"
+              animated
+            >
+              <Button.Content visible>Login</Button.Content>
+              <Button.Content hidden>
+                <Icon name='sign-in' />
+              </Button.Content>
             </Button>
-          </Segment>
-        </Form>
-        <Message>
-          New to us? <Link to="/register">Sign Up</Link>
-        </Message>
-      </Grid.Column>
-    </Grid>
+          </Form>
+          <Message warning>
+            <Icon name='help' />
+            <span>New to us? </span>
+            <a 
+              href="#" 
+              onClick={switchToRegister}
+              className="switch-auth-mode"
+            >
+              Sign Up Now
+            </a>
+          </Message>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='grey' onClick={onClose}>
+            <Icon name='close' /> Close
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    </TransitionablePortal>
   );
 };
 

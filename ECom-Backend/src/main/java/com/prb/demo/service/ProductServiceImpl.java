@@ -3,8 +3,8 @@ package com.prb.demo.service;
 import com.prb.demo.entity.ProductEntity;
 import com.prb.demo.io.ProductRequest;
 import com.prb.demo.io.ProductResponse;
+import com.prb.demo.io.ProductUpdateReq;
 import com.prb.demo.repository.ProductRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -97,11 +97,61 @@ public class ProductServiceImpl implements ProductService{
             productRepository.deleteById(response.getId());
         }
     }
+    
+    @Override
+    public List<ProductResponse> searchProducts(String keyword) {
+        List<ProductEntity> matchedProducts = productRepository.searchByKeyword(keyword);
+        return matchedProducts.stream()
+                .map(this::convertToResponse)
+                .collect(Collectors.toList());
+    }
+    
+    @Override
+    public List<ProductResponse> getProductsByCategory(String category) {
+        List<ProductEntity> entities = productRepository.findByCategoryIgnoreCase(category);
+        System.out.println("Filtering category: " + category);
+        productRepository.findByCategoryIgnoreCase(category)
+                .forEach(p -> System.out.println("Matched Product Category: " + p.getCategory()));
+
+        return entities.stream().map(this::convertToResponse).collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductResponse updateProductAvailability(String id, Boolean isAvailable) {
+        ProductEntity product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+
+        product.setIsAvailable(isAvailable);
+        productRepository.save(product);
+        return convertToResponse(product);
+    }
+    
+    @Override
+    public ProductUpdateReq updateProduct(String id, ProductUpdateReq productUpdateReq) {
+        ProductEntity product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+        product.setName(productUpdateReq.getName());
+        product.setDescription(productUpdateReq.getDescription());
+        product.setPrice(productUpdateReq.getPrice());
+        productRepository.save(product);
+        return convertToUpdateResponse(product);
+    }
+    
+    private ProductUpdateReq convertToUpdateResponse(ProductEntity productEntity) {
+        return ProductUpdateReq.builder()
+                .id(productEntity.getId())
+                .name(productEntity.getName())
+                .description(productEntity.getDescription())
+                .price(productEntity.getPrice())
+                .build();
+    }
+
 
     private ProductEntity convertToEntity(ProductRequest request) {
         return ProductEntity.builder()
                 .name(request.getName())
                 .description(request.getDescription())
+                .isAvailable(true)
                 .category(request.getCategory())
                 .price(request.getPrice())
                 .build();
@@ -113,9 +163,12 @@ public class ProductServiceImpl implements ProductService{
                 .id(entity.getId())
                 .name(entity.getName())
                 .description(entity.getDescription())
+                .isAvailable(entity.getIsAvailable())
                 .category(entity.getCategory())
                 .price(entity.getPrice())
                 .imageUrl(entity.getImageUrl())
                 .build();
     }
+    
+
 }

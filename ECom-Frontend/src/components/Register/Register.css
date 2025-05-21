@@ -7,3 +7,83 @@
     align-items: center;
     justify-content: center;
 }
+
+.register-modal {
+  border-radius: 15px !important;
+  overflow: hidden !important;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #00b5ad 0%, #008080 100%) !important;
+  color: white !important;
+  padding: 2em !important;
+}
+
+.modal-header h2 {
+  color: white !important;
+}
+
+.register-form {
+  padding: 1em 0;
+}
+
+/* Reuse the same form styling as login */
+.form-input input {
+  border-radius: 25px !important;
+  padding: 12px 20px !important;
+  background: #f8f9fa !important;
+  border: 2px solid transparent !important;
+  transition: all 0.3s ease !important;
+}
+
+.form-input input:focus {
+  background: white !important;
+  border-color: #00b5ad !important;
+  box-shadow: 0 0 0 2px rgba(0,181,173,0.1) !important;
+}
+
+.submit-button {
+  border-radius: 25px !important;
+  padding: 12px !important;
+  margin-top: 1.5em !important;
+  transition: transform 0.2s ease !important;
+}
+
+.submit-button:hover {
+  transform: translateY(-2px) !important;
+}
+
+.switch-auth-mode {
+  color: #00b5ad;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.switch-auth-mode:hover {
+  color: #008080;
+  text-decoration: underline;
+}
+
+/* Staggered animation for form inputs */
+.form-input {
+  animation: slideIn 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.form-input:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.form-input:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

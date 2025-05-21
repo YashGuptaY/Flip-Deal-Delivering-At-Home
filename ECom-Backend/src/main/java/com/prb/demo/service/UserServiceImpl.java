@@ -3,9 +3,13 @@ package com.prb.demo.service;
 import com.prb.demo.entity.UserEntity;
 import com.prb.demo.io.UserRequest;
 import com.prb.demo.io.UserResponse;
+import com.prb.demo.io.UserUpdateRequest;
 import com.prb.demo.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,7 +35,36 @@ public class UserServiceImpl implements UserService{
         UserEntity loggedInUser = userRepository.findByEmail(loggedInUserEmail).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return loggedInUser.getId();
     }
-
+    
+    @Override
+    public List<UserResponse> findAllUser() {
+        List<UserEntity> databaseEntries = userRepository.findAll();
+        return databaseEntries.stream().map(object -> convertToResponse(object)).collect(Collectors.toList());
+    }
+    
+    @Override
+    public UserResponse findUserForAdmin(String id) {
+        UserEntity existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found for the id:"+id));
+        return convertToResponse(existingUser);
+    }
+    
+    @Override
+    public boolean deleteUserById(String id) {
+    	userRepository.deleteById(id);
+    	return true;
+    }
+    
+//    @Override
+//    public UserResponse updateUserForAdmin(String id, UserUpdateRequest request) {
+//        UserEntity user = userRepository.findById(id)
+//            .orElseThrow(() -> new RuntimeException("User not found for id: " + id));
+//        user.setName(request.getName());
+//        user.setEmail(request.getEmail());
+//
+//        UserEntity saved = userRepository.save(user);
+//        return convertToResponse(saved);
+//    }
+    
     private UserEntity convertToEntity(UserRequest request) {
         return UserEntity.builder()
                 .email(request.getEmail())

@@ -4,10 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prb.demo.io.ProductRequest;
 import com.prb.demo.io.ProductResponse;
+import com.prb.demo.io.ProductUpdateReq;
 import com.prb.demo.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,4 +52,29 @@ public class ProductController {
     public void deleteProduct(@PathVariable String id) {
         productService.deleteProduct(id);
     }
+    
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductResponse>> searchProducts(@RequestParam String keyword) {
+        return ResponseEntity.ok(productService.searchProducts(keyword));
+    }
+    
+    @GetMapping("/category")
+    public List<ProductResponse> getProductsByCategory(@RequestParam String category) {
+        return productService.getProductsByCategory(category);
+    }
+
+    @PatchMapping("/{id}/availability")
+    public ResponseEntity<ProductResponse> updateAvailability(
+            @PathVariable String id,
+            @RequestBody Boolean isAvailable) {
+        return ResponseEntity.ok(productService.updateProductAvailability(id, isAvailable));
+    }
+    
+    @PatchMapping("/{id}/update")
+    public ResponseEntity<ProductUpdateReq> updateProduct(
+            @PathVariable String id,
+            @RequestBody ProductUpdateReq productUpdateReq) {
+        return ResponseEntity.ok(productService.updateProduct(id,productUpdateReq));
+    }
+
 }

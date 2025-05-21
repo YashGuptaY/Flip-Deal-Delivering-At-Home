@@ -8,7 +8,6 @@ import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Cart from "./pages/Cart/Cart";
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import Login from "./components/Login/Login";
-import Register from "./components/Register/Register";
 import { ToastContainer } from "react-toastify";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import { StoreContext } from "./context/StoreContext";
@@ -25,10 +24,8 @@ const App = () => {
         <Route path="/explore" element={<ExploreProduct />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/order" element={token ? <PlaceOrder /> : <Login />} />
-        <Route path="/login" element={token ? <Home /> : <Login />} />
-        <Route path="/register" element={token ? <Home /> : <Register />} />
-        <Route path="/myorders" element={token ? <MyOrders /> : <Login />} />
+        <Route path="/order" element={token ? <PlaceOrder /> : <Login open={true} />} />
+        <Route path="/myorders" element={token ? <MyOrders /> : <Login open={true} />} />
       </Routes>
     </div>
   );

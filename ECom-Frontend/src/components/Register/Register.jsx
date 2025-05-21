@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Form, Button, Grid, Header, Segment, Message } from 'semantic-ui-react';
+import { useNavigate } from "react-router-dom";
+import { Form, Button, Header, Message, Modal, TransitionablePortal, Icon } from 'semantic-ui-react';
 import { toast } from "react-toastify";
 import { registerUser } from "../../service/authService";
+import "./Register.css";
 
-const Register = () => {
+const Register = ({ open, onClose, switchToLogin }) => {
   const navigate = useNavigate();
   const [data, setData] = useState({
     name: "",
@@ -24,7 +25,7 @@ const Register = () => {
       const response = await registerUser(data);
       if (response.status === 201) {
         toast.success("Registration completed. Please login.");
-        navigate("/login");
+        switchToLogin();
       } else {
         toast.error("Unable to register. Please try again");
       }
@@ -34,13 +35,28 @@ const Register = () => {
   };
 
   return (
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as='h2' color='teal' textAlign='center'>
-          Create new account
-        </Header>
-        <Form size='large' onSubmit={onSubmitHandler}>
-          <Segment stacked>
+    <TransitionablePortal
+      open={open}
+      transition={{ animation: 'scale', duration: 300 }}
+    >
+      <Modal 
+        open={true} 
+        onClose={onClose} 
+        size="tiny"
+        className="register-modal"
+      >
+        <Modal.Header className="modal-header">
+          <Header as='h2' color='teal' textAlign='center'>
+            <Header.Content>
+              Create Account
+              <Header.Subheader>
+                Join our community today
+              </Header.Subheader>
+            </Header.Content>
+          </Header>
+        </Modal.Header>
+        <Modal.Content>
+          <Form size='large' onSubmit={onSubmitHandler} className="register-form">
             <Form.Input
               fluid
               icon='user'
@@ -49,6 +65,7 @@ const Register = () => {
               name="name"
               value={data.name}
               onChange={onChangeHandler}
+              className="form-input"
               required
             />
             <Form.Input
@@ -60,6 +77,7 @@ const Register = () => {
               name="email"
               value={data.email}
               onChange={onChangeHandler}
+              className="form-input"
               required
             />
             <Form.Input
@@ -71,18 +89,42 @@ const Register = () => {
               name="password"
               value={data.password}
               onChange={onChangeHandler}
+              className="form-input"
               required
             />
-            <Button color='teal' fluid size='large' type='submit'>
-              Register
+            <Button 
+              color='teal' 
+              fluid 
+              size='large' 
+              type='submit'
+              className="submit-button"
+              animated
+            >
+              <Button.Content visible>Register</Button.Content>
+              <Button.Content hidden>
+                <Icon name='user plus' />
+              </Button.Content>
             </Button>
-          </Segment>
-        </Form>
-        <Message>
-          Already have an account? <Link to="/login">Sign In</Link>
-        </Message>
-      </Grid.Column>
-    </Grid>
+          </Form>
+          <Message info>
+            <Icon name='user circle' />
+            <span>Already have an account? </span>
+            <a 
+              href="#" 
+              onClick={switchToLogin}
+              className="switch-auth-mode"
+            >
+              Sign In
+            </a>
+          </Message>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='grey' onClick={onClose}>
+            <Icon name='close' /> Close
+          </Button>
+        </Modal.Actions>
+      </Modal>
+    </TransitionablePortal>
   );
 };
 
