@@ -1,3 +1,24 @@
+.menu-management {
+    padding: 20px;
+}
+
+.menu-item-image {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.table th {
+    font-weight: 600;
+    color: #666;
+}
+
 .table td {
     vertical-align: middle;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
 }

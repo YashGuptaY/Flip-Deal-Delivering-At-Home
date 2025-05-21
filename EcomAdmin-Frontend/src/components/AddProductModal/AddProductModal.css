@@ -1,0 +1,65 @@
+.custom-modal .modal-dialog {
+    max-width: 500px;
+}
+
+.custom-modal .modal-header {
+    background: #2b3035;
+    color: white;
+}
+
+.custom-modal .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.custom-modal .modal-footer {
+    border-top: none;
+}
+
+.custom-modal .btn-primary {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.custom-modal .btn-primary:hover {
+    background-color: #bb2d3b;
+    border-color: #bb2d3b;
+}
+
+.custom-modal .form-control:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+
+.bg-lavender {
+    background-color: var(--lavender-primary);
+}
+
+.upload-box {
+    border: 2px dashed var(--lavender-lighter);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.upload-box:hover {
+    border-color: var(--lavender-primary);
+    background-color: rgba(142, 68, 173, 0.05);
+}
+
+.upload-preview {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.modal-content {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.form-control, .form-select {
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+}
