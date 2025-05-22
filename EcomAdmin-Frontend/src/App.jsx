@@ -6,6 +6,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import Menubar from './components/Menubar/Menubar';
 import { ToastContainer } from 'react-toastify';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Users from './pages/Users/Users';
 
 const App = () => {
   const [sidebarVisible, setSidebarVisible] = useState(true);
@@ -25,9 +26,10 @@ const App = () => {
                 
                 <div className="container-fluid">
                     <Routes>
+                      <Route path='/' element={<Dashboard />} />
                       <Route path='/list' element={<ListProduct />} />
                       <Route path='/orders' element={<Orders />} />
-                      <Route path='/' element={<ListProduct />} />
+                      <Route path='/users' element={<Users />} />
                     </Routes>
                 </div>
             </div>

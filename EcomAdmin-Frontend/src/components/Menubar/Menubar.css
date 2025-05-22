@@ -1,0 +1,15 @@
+.cyan-navbar {
+    background-color: #00ffff !important;
+}
+
+.btn-cyan {
+    background-color: #00e6e6;
+    border-color: #00cccc;
+    color: #000;
+}
+
+.btn-cyan:hover {
+    background-color: #00cccc;
+    border-color: #00b3b3;
+    color: #000;
+}

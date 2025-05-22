@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
-  --lavender-primary: #8e44ad;
-  --lavender-light: #9b59b6;
-  --lavender-lighter: #d2b4de;
-  --lavender-dark: #703688;
+  --golden-primary: #ffd700;
+  --golden-light: #ffe44d;
+  --golden-dark: #ccac00;
+  --golden-lighter: #fff5b3;
 }
 
 body {
@@ -55,16 +55,34 @@ body {
   }
 
 .btn-primary {
-  background-color: var(--lavender-primary);
-  border-color: var(--lavender-primary);
+  background-color: var(--golden-primary);
+  border-color: var(--golden-primary);
+  color: #000;
 }
 
 .btn-primary:hover {
-  background-color: var(--lavender-dark);
-  border-color: var(--lavender-dark);
+  background-color: var(--golden-dark);
+  border-color: var(--golden-dark);
+  color: #000;
+}
+
+.btn-outline-primary {
+  color: var(--golden-primary);
+  border-color: var(--golden-primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--golden-primary);
+  border-color: var(--golden-primary);
+  color: #000;
+}
+
+.badge.bg-success {
+  background-color: var(--golden-primary) !important;
+  color: #000;
 }
 
 .form-control:focus {
-  border-color: var(--lavender-light);
-  box-shadow: 0 0 0 0.25rem rgba(142, 68, 173, 0.25);
+  border-color: var(--golden-primary);
+  box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
 }

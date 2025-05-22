@@ -76,5 +76,13 @@ public class ProductController {
             @RequestBody ProductUpdateReq productUpdateReq) {
         return ResponseEntity.ok(productService.updateProduct(id,productUpdateReq));
     }
+    
+    @GetMapping("/search/category")
+    public ResponseEntity<List<ProductResponse>> searchProductsByCategory(
+            @RequestParam String keyword,
+            @RequestParam String category) {
+        return ResponseEntity.ok(productService.searchProductsByCategory(keyword, category));
+    }
+
 
 }

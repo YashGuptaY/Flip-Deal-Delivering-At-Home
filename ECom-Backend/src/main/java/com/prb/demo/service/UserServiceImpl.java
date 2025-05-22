@@ -54,16 +54,6 @@ public class UserServiceImpl implements UserService{
     	return true;
     }
     
-//    @Override
-//    public UserResponse updateUserForAdmin(String id, UserUpdateRequest request) {
-//        UserEntity user = userRepository.findById(id)
-//            .orElseThrow(() -> new RuntimeException("User not found for id: " + id));
-//        user.setName(request.getName());
-//        user.setEmail(request.getEmail());
-//
-//        UserEntity saved = userRepository.save(user);
-//        return convertToResponse(saved);
-//    }
     
     private UserEntity convertToEntity(UserRequest request) {
         return UserEntity.builder()

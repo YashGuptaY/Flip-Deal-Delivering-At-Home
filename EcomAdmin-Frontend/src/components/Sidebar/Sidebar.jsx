@@ -1,18 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {assets} from '../../assets/assets';
 
 const Sidebar = ({sidebarVisible}) => {
+  const location = useLocation();
+
   return (
-    <div className={`border-end bg-white ${sidebarVisible ? '': 'd-none'}`} id="sidebar-wrapper">
-        <div className="sidebar-heading border-bottom bg-light">
+    <div className={`border-end cyan-sidebar ${sidebarVisible ? '': 'd-none'}`} id="sidebar-wrapper">
+        <div className="sidebar-heading border-bottom cyan-header">
             <img src={assets.logo} alt="" height={32} width={32}/>
         </div>
         <div className="list-group list-group-flush">
-            <Link className="list-group-item list-group-item-action list-group-item-light p-3" to="/list">
-            <i className='bi bi-list-ul me-2'></i> List Product</Link>
-            <Link className="list-group-item list-group-item-action list-group-item-light p-3" to="/orders">
-            <i className='bi bi-cart me-2'></i> Orders</Link>
+            {[
+              { path: '/', icon: 'bi-speedometer2', text: 'Dashboard' },
+              { path: '/list', icon: 'bi-list-ul', text: 'Product Management' },
+              { path: '/orders', icon: 'bi-cart', text: 'Orders Management' },
+              { path: '/users', icon: 'bi-people', text: 'Users Management' }
+            ].map((item) => (
+              <Link 
+                key={item.path}
+                className={`list-group-item list-group-item-action p-3 ${
+                  location.pathname === item.path ? 'active golden-active' : ''
+                }`}
+                to={item.path}
+              >
+                <i className={`bi ${item.icon} me-2`}></i> {item.text}
+              </Link>
+            ))}
         </div>
     </div>
   )

@@ -19,5 +19,14 @@ public interface ProductRepository extends MongoRepository<ProductEntity, String
      List<ProductEntity> searchByKeyword(String keyword);
     
     List<ProductEntity> findByCategoryIgnoreCase(String category);
+    
+    @Query("{ '$and': [ " +
+            "{ 'category': { $regex: ?1, $options: 'i' } }, " +
+            "{ '$or': [ " +
+            "  { 'name': { $regex: ?0, $options: 'i' } }, " +
+            "  { 'description': { $regex: ?0, $options: 'i' } } " +
+            "] } ] }")
+    List<ProductEntity> searchByKeywordAndCategory(String keyword, String category);
+
 
 }

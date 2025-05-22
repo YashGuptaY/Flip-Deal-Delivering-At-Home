@@ -30,4 +30,6 @@ public interface ProductService {
     
     ProductUpdateReq updateProduct(String id, ProductUpdateReq productUpdateReq);
 
+	List<ProductResponse> searchProductsByCategory(String keyword, String category);
+
 }

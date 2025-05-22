@@ -1,0 +1,31 @@
+.golden-active {
+  background-color: var(--golden-lighter) !important;
+  border-color: var(--golden-primary) !important;
+  color: #000 !important;
+}
+
+.cyan-sidebar {
+    background-color: #00ffff !important;
+}
+
+.cyan-header {
+    background-color: #00e6e6 !important;
+    color: #000;
+}
+
+.list-group-item {
+    background-color: transparent;
+    color: #000;
+    border-color: #00e6e6;
+}
+
+.list-group-item:hover {
+    background-color: #00e6e6;
+    color: #000;
+}
+
+.list-group-item.active {
+    background-color: #00e6e6;
+    border-color: #00cccc;
+    color: #000;
+}

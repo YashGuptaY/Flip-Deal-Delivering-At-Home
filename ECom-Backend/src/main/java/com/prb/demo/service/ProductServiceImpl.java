@@ -137,6 +137,15 @@ public class ProductServiceImpl implements ProductService{
         return convertToUpdateResponse(product);
     }
     
+    @Override
+    public List<ProductResponse> searchProductsByCategory(String keyword, String category) {
+        List<ProductEntity> matched = productRepository.searchByKeywordAndCategory(keyword, category);
+        return matched.stream()
+                      .map(this::convertToResponse)
+                      .collect(Collectors.toList());
+    }
+
+    
     private ProductUpdateReq convertToUpdateResponse(ProductEntity productEntity) {
         return ProductUpdateReq.builder()
                 .id(productEntity.getId())

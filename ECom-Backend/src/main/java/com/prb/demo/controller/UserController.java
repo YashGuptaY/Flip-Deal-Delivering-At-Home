@@ -42,12 +42,4 @@ public class UserController {
     	return userService.deleteUserById(id);
     }
     
-//    @PatchMapping("/{id}")
-//    public UserResponse updateUser(
-//            @PathVariable String id,
-//            @RequestBody UserUpdateRequest request
-//    ) {
-//        return userService.updateUserForAdmin(id, request);
-//    }
-    
 }
