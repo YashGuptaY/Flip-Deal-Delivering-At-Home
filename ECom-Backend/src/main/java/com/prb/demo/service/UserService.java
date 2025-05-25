@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.prb.demo.io.UserRequest;
 import com.prb.demo.io.UserResponse;
-import com.prb.demo.io.UserUpdateRequest;
 
 public interface UserService {
 

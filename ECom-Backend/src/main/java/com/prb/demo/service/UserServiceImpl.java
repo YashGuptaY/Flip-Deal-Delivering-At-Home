@@ -3,7 +3,6 @@ package com.prb.demo.service;
 import com.prb.demo.entity.UserEntity;
 import com.prb.demo.io.UserRequest;
 import com.prb.demo.io.UserResponse;
-import com.prb.demo.io.UserUpdateRequest;
 import com.prb.demo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 
